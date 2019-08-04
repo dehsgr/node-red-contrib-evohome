@@ -12,6 +12,8 @@ Evohome Status will send a message per thermostat. the msg.payload looks like:
 
 ## Evohome Control
 Evohome Control makes it possible to set the setpoint per thermostat. It offers 3 ways to do so:
-- only provide the devide id will make the thermostat revert back to the schedule.
-- device id and temperature will set the temperature until next schedule.
-- device id, temperature and time will set a temporary setpoint until the given time, then revert back to the schedule.
+- only provide the zone id will make the thermostat revert back to the schedule.
+- zone id and temperature will set the temperature until next schedule.
+- zone id, temperature and time will set a temporary setpoint until the given time, then revert back to the schedule.
+This might look like:
+`{ id: "1234567", temperature: 22, endtime: "22:00:00" }`
