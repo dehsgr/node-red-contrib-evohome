@@ -1,4 +1,3 @@
-// Evohome Control node
 const evohome = require('./evohome.js');
 module.exports = function(RED) {
     'use strict';

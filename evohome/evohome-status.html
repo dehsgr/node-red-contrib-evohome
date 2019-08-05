@@ -1,19 +1,15 @@
-<!-- Sonos Query Node -->
-<!-- get different kinds of info from a specific SONOS player -->
-
-<!-- Registering Sonos Query Node -->
 <script type="text/javascript">
 	RED.nodes.registerType('evohome-status',{
         category: 'Evohome',
         defaults: {    
-            confignode: {value:"", type:"evohome-config"},
-            name: {value:""},
-            interval:{value:""}
+            confignode: { value: '', type: 'evohome-config' },
+            name: { value: '' },
+            interval: { value: '',  required: true }
         },
         inputs:0,               // set the number of inputs - only 0 or 1
         outputs:1,              // set the number of outputs - 0 to n
-        icon: "bridge.png",     // saved in  icons/myicon.png
-        color: "#E2D96E", 
+        icon: "honeywell.png",     // saved in  icons/myicon.png
+        color: "#EE3123", 
         label: function() {
             return this.name || "Evohome Status";
         },
@@ -39,8 +35,7 @@
 
 </script>
 
-
 <!-- Simple Help Text -->
 <script type="text/x-red" data-help-name="evohome-status">
-	<p>A node to retrieve different info based on input</p>
+	<p>A node to retrieve different info based on input.</p>
 </script>

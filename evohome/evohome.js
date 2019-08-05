@@ -246,9 +246,6 @@ Session.prototype._request = function(url) {
             try {
                 json = JSON.parse(response.body);
             } catch(ex) {
-                console.error(ex);
-                console.error(response.body);
-                console.error(response);
                 deferred.reject(ex);
             }
             if(json) {

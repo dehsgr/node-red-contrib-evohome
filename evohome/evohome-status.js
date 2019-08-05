@@ -63,7 +63,7 @@ module.exports = function(RED) {
 
         var tick = setInterval(function() {
             publishEvohomeStatus();
-        }, this.interval * 1000); // trigger every 30 secs
+        }, this.interval * 1000); // trigger every defined secs
 
         node.on("close", function() {
             if (tick) {
@@ -76,18 +76,17 @@ module.exports = function(RED) {
         });
 
         function renewSession() {
-console.log('renew');
             var session = globalContext.get('evohome-session');
             session._renew().then(function(json) {
                 // renew session token
                 clearInterval(renew);
-                session.sessionId = "bearer " + json.access_token;
+                session.sessionId = 'bearer ' + json.access_token;
                 session.refreshToken = json.refresh_token;
                 globalContext.set('evohome-session', session);
                 renew = setInterval(function() {
                         renewSession();
                     }, session.refreshTokenInterval * 1000);
-                console.log("Renewed Honeywell API authentication token!");
+                console.log('Renewed Honeywell API authentication token!');
             }).fail(function(err) {
                 globalContext.set('evohome-session', undefined);
                 node.warn('Renewing Honeywell API authentication token failed:', err);

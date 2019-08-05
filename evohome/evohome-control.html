@@ -1,24 +1,18 @@
-<!-- Sonos Control Node -->
-<!-- Controls node status, play/stop/pause + track: next/previous + volume: value/mute/unmute -->
-
-<!-- Registering Sonos Play Node -->
 <script type="text/javascript">
     RED.nodes.registerType('evohome-control',{
         category: 'Evohome',
         defaults: {    
-            confignode: {value:"", type:"evohome-config"},
-            name: {value:""},
+            confignode: { value: '', type: 'evohome-config' },
+            name: { value: '' },
         },
         inputs:1,               // set the number of inputs - only 0 or 1
         outputs:0,              // set the number of outputs - 0 to n
-        icon: "bridge.png",     // saved in  icons/myicon.png
-        color: "#E2D96E", 
+        icon: 'honeywell.png',  // saved in icons/myicon.png
+        color: '#EE3123', 
         label: function() {
-            return this.name || "Control Evohome";
+            return this.name || 'Control Evohome';
         },
-        paletteLabel: "Control",
-		// TODO: On change, focus and hide.
-        
+        paletteLabel: 'Control',
     });
 </script>
 
@@ -38,5 +32,5 @@
 
 <!-- Simple Help Text -->
 <script type="text/x-red" data-help-name="evohome-control">
-	<p>A node to control the setpoints for EVOhome thermostats</p>
+	<p>A node to control the setpoints for Evohome thermostats.</p>
 </script>
