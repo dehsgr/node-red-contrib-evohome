@@ -150,8 +150,7 @@ Session.prototype.setHeatSetpoint = function (zoneId, targetTemperature, endtime
             now.setDate(now.getDate() + 1);
         }
         var endDateString = now.toDateString() + " " + endtime;
-        var endDate = new Date(Date.parse(endDateString));
-
+        var endDate = new Date(Date.parse(endDateString)  + (new Date().getTimezoneOffset() * 60000));
         var body = JSON.stringify({"HeatSetpointValue":targetTemperature,"SetpointMode":"TemporaryOverride","TimeUntil":endDate});
     } else {
         // if target temperature is set to zero then we ask to follow the schedule instead of setting a temperature
