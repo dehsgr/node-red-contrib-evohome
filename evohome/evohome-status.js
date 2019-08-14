@@ -61,9 +61,11 @@ module.exports = function(RED) {
             }
         }
 
-        var tick = setInterval(function() {
-            publishEvohomeStatus();
-        }, this.interval * 1000); // trigger every defined secs
+		if (this.interval > 0) {
+			var tick = setInterval(function () {
+				publishEvohomeStatus();
+			}, this.interval * 1000);		// trigger every defined secs
+		}
 
         node.on("close", function() {
             if (tick) {
@@ -74,6 +76,10 @@ module.exports = function(RED) {
                 clearInterval(renew);
             }
         });
+
+		node.on('input', function (msg) {
+			publishEvohomeStatus();
+		});
 
         function renewSession() {
             var session = globalContext.get('evohome-session');

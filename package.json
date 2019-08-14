@@ -1,20 +1,24 @@
 {
-	"name"        : "node-red-contrib-evohome",
-	"version"     : "1.0.2",
-	"description" : "This provides nodes for controlling Honeywell Evohome",
-	"author"      : "d3h56r",
-	"license"     : "ISC",
-	"keywords": [ "node-red", "evohome", "heating"],
+	"name": "node-red-contrib-evohome",
+	"version": "1.0.3",
+	"description": "This provides nodes for controlling Honeywell Evohome",
+	"author": "d3h56r",
+	"license": "ISC",
+	"keywords": [
+		"node-red",
+		"evohome",
+		"heating"
+	],
 	"node-red": {
 		"nodes": {
-			"evohome-config"	: "evohome/evohome-config.js",
-			"evohome-control"	: "evohome/evohome-control.js",
-			"evohome-status"	: "evohome/evohome-status.js"
+			"evohome-config": "evohome/evohome-config.js",
+			"evohome-control": "evohome/evohome-control.js",
+			"evohome-status": "evohome/evohome-status.js"
 		}
 	},
 	"repository": {
 		"type": "git",
-		"url" : "https://github.com/dehsgr/node-red-contrib-evohome.git"
+		"url": "https://github.com/dehsgr/node-red-contrib-evohome.git"
 	},
 	"dependencies": {
 		"lodash": "^4.16.4",

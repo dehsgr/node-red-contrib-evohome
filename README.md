@@ -6,7 +6,10 @@ This provides nodes for controlling Honeywell Evohome. It's using the unofficial
 Evohome Config is a config node to set the userid and password to login to evohome servers.
 
 ## Evohome Status
-Evohome Status periodically polls the status of evohome servers. The interval in seconds can be set. It returns the zone-id, the name of the zone, the temperature, and the cuttent setpoint value.
+Evohome Status periodically polls the status of evohome servers. The interval in seconds can be set. To disable periodically polling, just set interval to 0 (zero).
+You might manually poll date via input message. Note: The first poll creates session only, there is no data fetching on first poll.
+
+Evohome Status returns the zone-id, the name of the zone, the temperature, and the cuttent setpoint value.
 Evohome Status will send a message per thermostat. the msg.payload looks like:
 `{ id: "1234567", name: "bedroom", currentTemperature: 22, targetTemperature: 22 }`
 
