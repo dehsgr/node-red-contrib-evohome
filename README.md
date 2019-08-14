@@ -11,6 +11,7 @@ You might manually poll date via input message. Note: The first poll creates ses
 
 Evohome Status returns the zone-id, the name of the zone, the temperature, and the cuttent setpoint value.
 Evohome Status will send a message per thermostat. the msg.payload looks like:
+
 `{ id: "1234567", name: "bedroom", currentTemperature: 22, targetTemperature: 22 }`
 
 ## Evohome Control
@@ -20,4 +21,5 @@ Evohome Control makes it possible to set the setpoint per thermostat. It offers 
 - zone id, temperature and time will set a temporary setpoint until the given time, then revert back to the schedule.
 
 This might look like:
+
 `{ id: "1234567", temperature: 22, endtime: "22:00:00" }`
