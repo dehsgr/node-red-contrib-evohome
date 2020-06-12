@@ -24,6 +24,11 @@ module.exports = function(RED) {
             } else {
                 var session = globalContext.get('evohome-session');
 	            session.getLocations().then(function(locations) {
+                    if (!locations || !locations.length) {
+                        globalContext.set('evohome-session', undefined);
+                        return;
+                    }
+
                     session.getThermostats(locations[0].locationID).then(function(thermostats){
                         session.getSystemModeStatus(locations[0].locationID).then(function(systemModeStatus){
                             // iterate through the devices
