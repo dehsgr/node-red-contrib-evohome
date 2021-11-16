@@ -16,7 +16,7 @@ module.exports = function(RED) {
                             globalContext.set('evohome-session', undefined);
                             return;
                         }
-                        session.setSystemMode(locations[0].locationID, msg.payload.quickAction).then(function (resp) {
+                        session.setSystemMode(locations[0].systemId, msg.payload.quickAction).then(function (resp) {
                             node.log(JSON.stringify(resp));
                             node.log('Set system mode to: ' + msg.payload.quickAction);
                         }).fail(function(err) {
