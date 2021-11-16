@@ -31,6 +31,7 @@ module.exports = function(RED) {
 
                     session.getThermostats(locations[0].locationID).then(function(thermostats){
                         session.getSystemModeStatus(locations[0].locationID).then(function(systemModeStatus){
+                            node.log('systemModeStatus: ' + systemModeStatus);
                             // iterate through the devices
                             for (var deviceId in locations[0].devices) {
                                 for(var thermoId in thermostats) {

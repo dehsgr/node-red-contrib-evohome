@@ -4,7 +4,6 @@ module.exports = function(RED) {
 
     function Node(n) {
         RED.nodes.createNode(this,n);
-        var confignode = RED.nodes.getNode(n.confignode);
         var globalContext = this.context().global;
         var node = this;
         this.on('input', function (msg) {

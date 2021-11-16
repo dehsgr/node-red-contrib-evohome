@@ -13,7 +13,8 @@
 		"nodes": {
 			"evohome-config": "evohome/evohome-config.js",
 			"evohome-control": "evohome/evohome-control.js",
-			"evohome-status": "evohome/evohome-status.js"
+			"evohome-status": "evohome/evohome-status.js",
+			"evohome-quickaction": "evohome/evohome-quickaction.js"
 		}
 	},
 	"repository": {
