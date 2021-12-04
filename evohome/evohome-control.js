@@ -47,7 +47,7 @@ module.exports = function(RED) {
                         }
 
                         node.log('Setting target temperature for ' + msg.payload.id + ' to ' + (msg.payload.temperature || 'current') + '° until ' + (msg.payload.temperature ? msg.payload.endtime || nextScheduleTime : null));
-                        session.setHeatSetpoint(msg.payload.id, msg.payload.temperature || 0, (msg.payload.temperature ? msg.payload.endtime || nextScheduleTime : null)).then(function (taskId) {
+                        session.setHeatSetpoint(msg.payload.id, msg.payload.temperature || 0, (msg.payload.permanent ? null : (msg.payload.temperature ? msg.payload.endtime || nextScheduleTime : null))).then(function (taskId) {
                             node.log("Successfully changed temperature!");
                         });
                     }).fail(function(err) {
