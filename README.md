@@ -23,5 +23,7 @@ Evohome Control makes it possible to set the setpoint per thermostat. It offers 
 This might look like:
 
 `{ id: "1234567", temperature: 22, endtime: "22:00:00" }`
+
 or
+
 `{ id: "1234567", temperature: 22, permanent: true }`
