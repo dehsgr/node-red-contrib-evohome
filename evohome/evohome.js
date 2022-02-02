@@ -121,22 +121,24 @@ Session.prototype.getSystemModeStatus = function(locationId) {
 Session.prototype.getLocations = function() {
     var url = "https://tccna.honeywell.com/WebAPI/emea/api/v1/location/installationInfo?userId=" + this.userInfo.userID + "&includeTemperatureControlSystems=True";
     return this._request(url).then(function(json) {
-        return _.map(json, function(location) {
-            var data = {}
-            data.locationID = location.locationInfo.locationId;
-            data.name = location.locationInfo.name;
-            data.streetAddress = location.locationInfo.streetAddress;
-            data.city = location.locationInfo.city;
-            data.country = location.locationInfo.country;
-            data.postcode = location.locationInfo.postcode;
-            data.locationType = location.locationInfo.locationType;
-            data.daylightSavingTimeEnabled = location.locationInfo.useDaylightSaveSwitching;
-            data.timeZone = location.locationInfo.timeZone;
-            data.devices = location.gateways[0].temperatureControlSystems[0].zones;
-            data.systemId = location.gateways[0].temperatureControlSystems[0].systemId;
+        return _(json).filter(function(x){
+                return x && x.locationInfo;
+            }).map(function(location) {
+                var data = {}
+                data.locationID = location.locationInfo.locationId;
+                data.name = location.locationInfo.name;
+                data.streetAddress = location.locationInfo.streetAddress;
+                data.city = location.locationInfo.city;
+                data.country = location.locationInfo.country;
+                data.postcode = location.locationInfo.postcode;
+                data.locationType = location.locationInfo.locationType;
+                data.daylightSavingTimeEnabled = location.locationInfo.useDaylightSaveSwitching;
+                data.timeZone = location.locationInfo.timeZone;
+                data.devices = location.gateways[0].temperatureControlSystems[0].zones;
+                data.systemId = location.gateways[0].temperatureControlSystems[0].systemId;
 
-            return new Location(data);
-        });
+                return new Location(data);
+            }).value();
     });
 }
 
