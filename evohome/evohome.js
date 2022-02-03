@@ -93,6 +93,10 @@ function SystemModeStatus(json) {
 	this.isPermanent = json.isPermanent;
 }
 
+Session.prototype.isValid = function () {
+	return true;
+}
+
 Session.prototype.getSchedule = function(zoneId) {
 	var url = "https://tccna.honeywell.com/WebAPI/emea/api/v1/temperatureZone/" + zoneId + "/schedule";
 	return this._request(url).then(function(json) {
