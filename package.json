@@ -1,6 +1,6 @@
 {
 	"name": "node-red-contrib-evohome",
-	"version": "1.0.6",
+	"version": "1.1.2",
 	"description": "This provides nodes for controlling Honeywell Evohome",
 	"author": "d3h56r",
 	"license": "ISC",
