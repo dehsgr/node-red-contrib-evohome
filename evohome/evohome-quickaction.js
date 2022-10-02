@@ -8,7 +8,7 @@ module.exports = function(RED) {
         var node = this;
         this.on('input', function (msg) {
             var session = globalContext.get('evohome-session');
-            if (session) {
+            if (session && session.isValid && session.isValid()) {
                 if (msg.payload.quickAction !== undefined) {
                     session.getLocations().then(function(locations) {
                         if (!locations || !locations.length) {
