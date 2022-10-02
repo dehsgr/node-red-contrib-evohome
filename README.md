@@ -29,7 +29,7 @@ or
 `{ id: "1234567", temperature: 22, permanent: true }`
 
 ## Evohome QuickAction
-Evohome QuickAction makes it possible to set the QuickAction of the system, i.e. Auto, Away, Eco
+Evohome QuickAction makes it possible to set the QuickAction of the system, i.e. Auto, Away, Eco.
 
 This might look like:
 

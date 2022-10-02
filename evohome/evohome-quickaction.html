@@ -1,27 +1,27 @@
 <script type="text/javascript">
-    RED.nodes.registerType('evohome-quickaction',{
-        category: 'Evohome',
-        defaults: {    
-            confignode: { value: '', type: 'evohome-config' },
-            name: { value: '' },
-        },
-        inputs: 1,				// set the number of inputs - only 0 or 1
-        outputs: 0,             // set the number of outputs - 0 to n
-        icon: 'honeywell.png',  // saved in icons/myicon.png
-        color: '#EE3123', 
-        label: function() {
-            return this.name || 'Set Evohome QuickAction';
-        },
-        paletteLabel: 'QuickAction',
-    });
+	RED.nodes.registerType('evohome-quickaction',{
+		category: 'Evohome',
+		defaults: {	
+			confignode: { value: '', type: 'evohome-config' },
+			name: { value: '' },
+		},
+		inputs: 1,				// set the number of inputs - only 0 or 1
+		outputs: 0,				// set the number of outputs - 0 to n
+		icon: 'honeywell.png',  // saved in icons/myicon.png
+		color: '#EE3123', 
+		label: function() {
+			return this.name || 'Set Evohome QuickAction';
+		},
+		paletteLabel: 'QuickAction',
+	});
 </script>
 
 <!-- Setting design and inputs for node -->
 <script type="text/x-red" data-template-name="evohome-quickaction">
-    <div class="form-row">
-        <label for="node-input-confignode"> Evohome</label>
-        <input type="text" id="node-input-confignode">
-    </div>
+	<div class="form-row">
+		<label for="node-input-confignode"> Evohome</label>
+		<input type="text" id="node-input-confignode">
+	</div>
 	<div class="form-row">
 		<label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
 		<input type="text" id="node-input-name" placeholder="Evohome quickaction Node Name">
