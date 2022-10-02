@@ -18,9 +18,7 @@ Evohome Control makes it possible to set the setpoint per thermostat. It offers 
 - only provide the zone id will make the thermostat revert back to the schedule.
 - zone id and temperature will set the temperature until next schedule.
 - zone id, temperature and time will set a temporary setpoint until the given time, then revert back to the schedule.
-- zone id, temperature and permanent-flag will set the temperature permanently.
-
-This might look like:
+- zone id, temperature and permanent-flag will set the temperature permanently. The msg.payload looks like:
 
 `{ id: "1234567", temperature: 22, endtime: "22:00:00" }`
 

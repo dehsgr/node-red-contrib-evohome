@@ -56,13 +56,13 @@ module.exports = function(RED) {
 								}
 							}
 						}).fail(function(err){
-							node.warn(err);
+							node.warn('Evohome failed: ' + err);
 						});
 					}).fail(function(err){
-						node.warn(err);
+						node.warn('Evohome failed: ' + err);
 					});
 				}).fail(function(err) {
-					node.warn(err);
+					node.warn('Evohome failed: ' + err);
 				});
 			}
 		}
