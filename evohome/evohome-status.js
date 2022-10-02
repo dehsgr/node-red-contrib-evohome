@@ -46,7 +46,8 @@ module.exports = function(RED) {
 													id: thermostats[thermoId].zoneId,
 													name : locations[0].devices[deviceId].name.toLowerCase(),
 													currentTemperature : thermostats[thermoId].temperatureStatus.temperature,
-													targetTemperature : thermostats[thermoId].setpointStatus.targetHeatTemperature
+													targetTemperature : thermostats[thermoId].setpointStatus.targetHeatTemperature,
+													systemModeStatus: systemModeStatus
 												}
 											}
 											node.send(msgout);

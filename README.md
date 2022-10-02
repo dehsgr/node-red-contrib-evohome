@@ -11,7 +11,7 @@ You might manually poll date via input message. Note: The first poll creates ses
 
 Evohome Status returns the zone-id, the name of the zone, the temperature, and the cuttent setpoint value. It will send a message per thermostat. The msg.payload looks like:
 
-`{ id: "1234567", name: "bedroom", currentTemperature: 22, targetTemperature: 22 }`
+`{ id: "1234567", name: "bedroom", currentTemperature: 22, targetTemperature: 22, systemModeStatus: { mode: "Auto", isPermanent: true } }`
 
 ## Evohome Control
 Evohome Control makes it possible to set the setpoint per thermostat. It offers 4 ways to do so:
@@ -27,3 +27,14 @@ This might look like:
 or
 
 `{ id: "1234567", temperature: 22, permanent: true }`
+
+## Evohome QuickAction
+Evohome QuickAction makes it possible to set the QuickAction of the system, i.e. Auto, Away, Eco.
+
+This might look like:
+
+`{ quickAction: "Away" }`
+
+or
+
+`{ quickAction: "Auto" }`

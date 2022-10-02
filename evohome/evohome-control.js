@@ -20,7 +20,6 @@ module.exports = function(RED) {
 						var currenttime = correctDate.toLocaleTimeString('de-DE', { timeZone: 'Europe/Berlin', hour12: false});
 						var proceed = true;
 						var nextScheduleTime = '';
-
 						for(var scheduleId in schedule) {
 							if(schedule[scheduleId].dayOfWeek == weekday[weekdayNumber]) {
 								node.log('Schedule points for today (' + schedule[scheduleId].dayOfWeek + ')');
