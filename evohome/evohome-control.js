@@ -9,7 +9,16 @@ module.exports = function(RED) {
 		var node = this;
 		this.on('input', function (msg) {
 			var session = globalContext.get('evohome-session');
-			if (session && session.isValid && session.isValid()) {
+			if (!session || !session.isValid || !session.isValid()) {
+				evohome.login(confignode.userid, confignode.passwd).then(function(session) {
+					globalContext.set('evohome-session', session);
+					renew = setInterval(function() {
+						renewSession();
+					}, session.refreshTokenInterval * 1000);
+				}).fail(function(err) {
+					node.warn(err);
+				});
+			} else {
 				if (msg.payload.id !== undefined) {
 					session.getSchedule(msg.payload.id).then(function (schedule) {
 						var date = new Date();
@@ -20,6 +29,13 @@ module.exports = function(RED) {
 						var currenttime = correctDate.toLocaleTimeString('de-DE', { timeZone: 'Europe/Berlin', hour12: false});
 						var proceed = true;
 						var nextScheduleTime = '';
+
+						if (!schedule || !schedule.length) {
+							node.warn('No schedules returned.  Unsetting session.');
+							globalContext.set('evohome-session', undefined);
+							return;
+						}
+
 						for(var scheduleId in schedule) {
 							if(schedule[scheduleId].dayOfWeek == weekday[weekdayNumber]) {
 								node.log('Schedule points for today (' + schedule[scheduleId].dayOfWeek + ')');
@@ -50,11 +66,9 @@ module.exports = function(RED) {
 							node.log("Successfully changed temperature!");
 						});
 					}).fail(function(err) {
-						node.warn('Evohome failed: ' + err);
+						node.warn(err);
 					});
 				}
-			} else {
-				node.warn('Session not created yet!');
 			}
 		});
 	}

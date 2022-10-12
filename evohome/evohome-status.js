@@ -25,6 +25,7 @@ module.exports = function(RED) {
 			} else {
 				session.getLocations().then(function(locations) {
 					if (!locations || !locations.length) {
+						node.warn('No schedules returned.  Unsetting session.');
 						globalContext.set('evohome-session', undefined);
 						return;
 					}
@@ -56,13 +57,13 @@ module.exports = function(RED) {
 								}
 							}
 						}).fail(function(err){
-							node.warn('Evohome failed: ' + err);
+							node.warn(err);
 						});
 					}).fail(function(err){
-						node.warn('Evohome failed: ' + err);
+						node.warn(err);
 					});
 				}).fail(function(err) {
-					node.warn('Evohome failed: ' + err);
+					node.warn(err);
 				});
 			}
 		}

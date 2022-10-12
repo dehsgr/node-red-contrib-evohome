@@ -8,11 +8,20 @@ module.exports = function(RED) {
 		var node = this;
 		this.on('input', function (msg) {
 			var session = globalContext.get('evohome-session');
-			if (session && session.isValid && session.isValid()) {
+			if (!session || !session.isValid || !session.isValid()) {
+				evohome.login(confignode.userid, confignode.passwd).then(function(session) {
+					globalContext.set('evohome-session', session);
+					renew = setInterval(function() {
+						renewSession();
+					}, session.refreshTokenInterval * 1000);
+				}).fail(function(err) {
+					node.warn(err);
+				});
+			} else {
 				if (msg.payload.quickAction !== undefined) {
 					session.getLocations().then(function(locations) {
 						if (!locations || !locations.length) {
-							node.warn('No locations returned.  Unsetting session');
+							node.warn('No locations returned.  Unsetting session.');
 							globalContext.set('evohome-session', undefined);
 							return;
 						}
@@ -20,14 +29,12 @@ module.exports = function(RED) {
 							node.debug(JSON.stringify(resp));
 							node.log('Set system mode to: ' + msg.payload.quickAction);
 						}).fail(function(err) {
-							node.warn('Evohome failed: ' + err)
+							node.warn(err);
 						});
 					}).fail(function(err) {
-						node.warn('Evohome failed: ' + err);
+						node.warn(err);
 					});
 				}
-			} else {
-				node.warn('Session not created yet!');
 			}
 		});
 	}
