@@ -7,6 +7,8 @@ module.exports = function(RED) {
 		var confignode = RED.nodes.getNode(n.confignode);
 		var globalContext = this.context().global;
 		var node = this;
+		var renew;
+
 		this.on('input', function (msg) {
 			var session = globalContext.get('evohome-session');
 			if (!session || !session.isValid || !session.isValid()) {
@@ -30,33 +32,35 @@ module.exports = function(RED) {
 						var proceed = true;
 						var nextScheduleTime = '';
 
-						if (!schedule || !schedule.length) {
-							node.warn('No schedules returned.  Unsetting session.');
-							globalContext.set('evohome-session', undefined);
-							return;
-						}
+						if (!msg.payload.permanent ){
+							if (!schedule || !schedule.length) {
+								node.warn('No schedules returned. Unsetting session.');
+								globalContext.set('evohome-session', undefined);
+								return;
+							}
 
-						for(var scheduleId in schedule) {
-							if(schedule[scheduleId].dayOfWeek == weekday[weekdayNumber]) {
-								node.log('Schedule points for today (' + schedule[scheduleId].dayOfWeek + ')');
-								var switchpoints = schedule[scheduleId].switchpoints;
-								for(var switchpointId in switchpoints) {
-									var logline = '- ' + switchpoints[switchpointId].timeOfDay;
-									if(proceed == true) {
-										if(currenttime >= switchpoints[switchpointId].timeOfDay) {
-											proceed = true;
-										} else if (currenttime < switchpoints[switchpointId].timeOfDay) {
-											proceed = false;
-											nextScheduleTime = switchpoints[switchpointId].timeOfDay;
-											logline = logline + ' -> next change';
+							for(var scheduleId in schedule) {
+								if(schedule[scheduleId].dayOfWeek == weekday[weekdayNumber]) {
+									node.log('Schedule points for today (' + schedule[scheduleId].dayOfWeek + ')');
+									var switchpoints = schedule[scheduleId].switchpoints;
+									for(var switchpointId in switchpoints) {
+										var logline = '- ' + switchpoints[switchpointId].timeOfDay;
+										if(proceed == true) {
+											if(currenttime >= switchpoints[switchpointId].timeOfDay) {
+												proceed = true;
+											} else if (currenttime < switchpoints[switchpointId].timeOfDay) {
+												proceed = false;
+												nextScheduleTime = switchpoints[switchpointId].timeOfDay;
+												logline = logline + ' -> next change';
+											}
 										}
+
+										node.log(logline);
 									}
 
-									node.log(logline);
-								}
-
-								if(proceed == true) {
-									nextScheduleTime = '00:00:00';
+									if(proceed == true) {
+										nextScheduleTime = '00:00:00';
+									}
 								}
 							}
 						}

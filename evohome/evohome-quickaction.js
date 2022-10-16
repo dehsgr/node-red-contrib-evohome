@@ -21,7 +21,7 @@ module.exports = function(RED) {
 				if (msg.payload.quickAction !== undefined) {
 					session.getLocations().then(function(locations) {
 						if (!locations || !locations.length) {
-							node.warn('No locations returned.  Unsetting session.');
+							node.warn('No locations returned. Unsetting session.');
 							globalContext.set('evohome-session', undefined);
 							return;
 						}

@@ -25,7 +25,7 @@ module.exports = function(RED) {
 			} else {
 				session.getLocations().then(function(locations) {
 					if (!locations || !locations.length) {
-						node.warn('No schedules returned.  Unsetting session.');
+						node.warn('No schedules returned. Unsetting session.');
 						globalContext.set('evohome-session', undefined);
 						return;
 					}
