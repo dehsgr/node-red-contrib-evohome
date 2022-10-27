@@ -6,16 +6,16 @@ module.exports = function(RED) {
 	function Node(n) {
 		RED.nodes.createNode(this,n);
 		var confignode = RED.nodes.getNode(n.confignode);
-		var globalContext = this.context().global;
+		var context = this.context().flow;
 		var node = this;
 		var renew;
 		this.interval = parseInt(n.interval);
 
 		function publishEvohomeStatus() {
-			var session = globalContext.get('evohome-session');
+			var session = context.get('evohome-session');
 			if (!session || !session.isValid || !session.isValid()) {
 				evohome.login(confignode.userid, confignode.passwd).then(function(session) {
-					globalContext.set('evohome-session', session);
+					context.set('evohome-session', session);
 					renew = setInterval(function() {
 						renewSession();
 					}, session.refreshTokenInterval * 1000);
@@ -26,7 +26,7 @@ module.exports = function(RED) {
 				session.getLocations().then(function(locations) {
 					if (!locations || !locations.length) {
 						node.warn('No schedules returned. Unsetting session.');
-						globalContext.set('evohome-session', undefined);
+						context.set('evohome-session', undefined);
 						return;
 					}
 
@@ -89,7 +89,7 @@ module.exports = function(RED) {
 		});
 
 		function renewSession() {
-			var session = globalContext.get('evohome-session');
+			var session = context.get('evohome-session');
 			
 			// Clear the interval now because we will either create a new one if we 
 			// refresh the token, of it that fails, there is no point trying to renew
@@ -101,13 +101,13 @@ module.exports = function(RED) {
 					// renew session token
 					session.sessionId = 'bearer ' + json.access_token;
 					session.refreshToken = json.refresh_token;
-					globalContext.set('evohome-session', session);
+					context.set('evohome-session', session);
 					renew = setInterval(function() {
 							renewSession();
 						}, session.refreshTokenInterval * 1000);
 					console.log('Renewed Honeywell API authentication token!');
 				}).fail(function(err) {
-					globalContext.set('evohome-session', undefined);
+					context.set('evohome-session', undefined);
 					node.warn('Renewing Honeywell API authentication token failed:', err);
 				});
 			}

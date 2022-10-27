@@ -4,13 +4,13 @@ module.exports = function(RED) {
 
 	function Node(n) {
 		RED.nodes.createNode(this,n);
-		var globalContext = this.context().global;
+		var context = this.context().flow;
 		var node = this;
 		this.on('input', function (msg) {
-			var session = globalContext.get('evohome-session');
+			var session = context.get('evohome-session');
 			if (!session || !session.isValid || !session.isValid()) {
 				evohome.login(confignode.userid, confignode.passwd).then(function(session) {
-					globalContext.set('evohome-session', session);
+					context.set('evohome-session', session);
 					renew = setInterval(function() {
 						renewSession();
 					}, session.refreshTokenInterval * 1000);
@@ -22,7 +22,7 @@ module.exports = function(RED) {
 					session.getLocations().then(function(locations) {
 						if (!locations || !locations.length) {
 							node.warn('No locations returned. Unsetting session.');
-							globalContext.set('evohome-session', undefined);
+							context.set('evohome-session', undefined);
 							return;
 						}
 						session.setSystemMode(locations[0].systemId, msg.payload.quickAction).then(function (resp) {
