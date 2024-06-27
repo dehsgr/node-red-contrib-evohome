@@ -1,6 +1,6 @@
 {
 	"name": "node-red-contrib-evohome",
-	"version": "1.3.3",
+	"version": "1.3.4",
 	"description": "This provides nodes for controlling Honeywell Evohome",
 	"author": "d3h56r",
 	"license": "ISC",
@@ -10,6 +10,7 @@
 		"heating"
 	],
 	"node-red": {
+		"version": ">=1.2.6",
 		"nodes": {
 			"evohome-config": "evohome/evohome-config.js",
 			"evohome-control": "evohome/evohome-control.js",
@@ -25,5 +26,8 @@
 		"lodash": "^4.16.4",
 		"q": "^1.4.1",
 		"request": "^2.75.0"
+	},
+	"engines": {
+		"node": ">=12.0.0"
 	}
 }

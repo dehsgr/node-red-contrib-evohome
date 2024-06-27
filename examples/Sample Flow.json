@@ -1,0 +1,272 @@
+[
+	{
+		"id": "d0af231ea6b9bdef",
+		"type": "tab",
+		"label": "Sample Flow",
+		"disabled": false,
+		"info": "",
+		"env": []
+	},
+	{
+		"id": "a9cf59d59208e77f",
+		"type": "group",
+		"z": "d0af231ea6b9bdef",
+		"name": "Polling Information",
+		"style": {
+			"label": true
+		},
+		"nodes": [
+			"5a915127bb6e9be6",
+			"8646e2eca74ce703"
+		],
+		"x": 14,
+		"y": 19,
+		"w": 552,
+		"h": 82
+	},
+	{
+		"id": "cdea4ea625b1e0f0",
+		"type": "group",
+		"z": "d0af231ea6b9bdef",
+		"name": "Controlling",
+		"style": {
+			"label": true
+		},
+		"nodes": [
+			"edb8cdd25e61683b",
+			"d9c6659e7bdf8a53",
+			"05611186644e1f5d",
+			"b4694d2ba2c52d0c"
+		],
+		"x": 14,
+		"y": 119,
+		"w": 552,
+		"h": 122
+	},
+	{
+		"id": "589ae78f4a41dca8",
+		"type": "group",
+		"z": "d0af231ea6b9bdef",
+		"name": "Quick Actions",
+		"style": {
+			"label": true
+		},
+		"nodes": [
+			"f161944be08d908b",
+			"dc9fca3aca95c45a",
+			"bab9f160ef380a47",
+			"178a8b068772675a",
+			"43add5f587a79db8"
+		],
+		"x": 14,
+		"y": 259,
+		"w": 552,
+		"h": 122
+	},
+	{
+		"id": "b4694d2ba2c52d0c",
+		"type": "junction",
+		"z": "d0af231ea6b9bdef",
+		"g": "cdea4ea625b1e0f0",
+		"x": 340,
+		"y": 200,
+		"wires": [
+			[
+				"edb8cdd25e61683b"
+			]
+		]
+	},
+	{
+		"id": "178a8b068772675a",
+		"type": "junction",
+		"z": "d0af231ea6b9bdef",
+		"g": "589ae78f4a41dca8",
+		"x": 280,
+		"y": 340,
+		"wires": [
+			[
+				"f161944be08d908b"
+			]
+		]
+	},
+	{
+		"id": "43add5f587a79db8",
+		"type": "junction",
+		"z": "d0af231ea6b9bdef",
+		"g": "589ae78f4a41dca8",
+		"x": 280,
+		"y": 300,
+		"wires": [
+			[
+				"f161944be08d908b"
+			]
+		]
+	},
+	{
+		"id": "5a915127bb6e9be6",
+		"type": "debug",
+		"z": "d0af231ea6b9bdef",
+		"g": "a9cf59d59208e77f",
+		"name": "Debug",
+		"active": true,
+		"tosidebar": true,
+		"console": false,
+		"tostatus": false,
+		"complete": "true",
+		"targetType": "full",
+		"statusVal": "",
+		"statusType": "auto",
+		"x": 470,
+		"y": 60,
+		"wires": []
+	},
+	{
+		"id": "edb8cdd25e61683b",
+		"type": "evohome-control",
+		"z": "d0af231ea6b9bdef",
+		"g": "cdea4ea625b1e0f0",
+		"confignode": "7287d59004e2708f",
+		"name": "",
+		"x": 450,
+		"y": 180,
+		"wires": []
+	},
+	{
+		"id": "8646e2eca74ce703",
+		"type": "evohome-status",
+		"z": "d0af231ea6b9bdef",
+		"g": "a9cf59d59208e77f",
+		"confignode": "7287d59004e2708f",
+		"name": "",
+		"interval": "5",
+		"x": 120,
+		"y": 60,
+		"wires": [
+			[
+				"5a915127bb6e9be6"
+			]
+		]
+	},
+	{
+		"id": "f161944be08d908b",
+		"type": "evohome-quickaction",
+		"z": "d0af231ea6b9bdef",
+		"g": "589ae78f4a41dca8",
+		"confignode": "7287d59004e2708f",
+		"name": "",
+		"x": 420,
+		"y": 320,
+		"wires": []
+	},
+	{
+		"id": "d9c6659e7bdf8a53",
+		"type": "inject",
+		"z": "d0af231ea6b9bdef",
+		"g": "cdea4ea625b1e0f0",
+		"name": "Set Temperature with scheduled End",
+		"props": [
+			{
+				"p": "payload"
+			}
+		],
+		"repeat": "",
+		"crontab": "",
+		"once": false,
+		"onceDelay": 0.1,
+		"topic": "",
+		"payload": "{\"id\":\"1234567\",\"temperature\":22,\"endtime\":\"22:00:00\"}",
+		"payloadType": "json",
+		"x": 200,
+		"y": 160,
+		"wires": [
+			[
+				"edb8cdd25e61683b"
+			]
+		]
+	},
+	{
+		"id": "05611186644e1f5d",
+		"type": "inject",
+		"z": "d0af231ea6b9bdef",
+		"g": "cdea4ea625b1e0f0",
+		"name": "Set Temperature permanent",
+		"props": [
+			{
+				"p": "payload"
+			}
+		],
+		"repeat": "",
+		"crontab": "",
+		"once": false,
+		"onceDelay": 0.1,
+		"topic": "",
+		"payload": "{\"id\":\"1234567\",\"temperature\":22,\"permanent\":true}",
+		"payloadType": "json",
+		"x": 180,
+		"y": 200,
+		"wires": [
+			[
+				"b4694d2ba2c52d0c"
+			]
+		]
+	},
+	{
+		"id": "dc9fca3aca95c45a",
+		"type": "inject",
+		"z": "d0af231ea6b9bdef",
+		"g": "589ae78f4a41dca8",
+		"name": "Set Away",
+		"props": [
+			{
+				"p": "payload"
+			}
+		],
+		"repeat": "",
+		"crontab": "",
+		"once": false,
+		"onceDelay": 0.1,
+		"topic": "",
+		"payload": "{\"quickAction\":\"Away\"}",
+		"payloadType": "json",
+		"x": 120,
+		"y": 300,
+		"wires": [
+			[
+				"43add5f587a79db8"
+			]
+		]
+	},
+	{
+		"id": "bab9f160ef380a47",
+		"type": "inject",
+		"z": "d0af231ea6b9bdef",
+		"g": "589ae78f4a41dca8",
+		"name": "Set Automatic",
+		"props": [
+			{
+				"p": "payload"
+			}
+		],
+		"repeat": "",
+		"crontab": "",
+		"once": false,
+		"onceDelay": 0.1,
+		"topic": "",
+		"payload": "{\"quickAction\":\"Auto\"}",
+		"payloadType": "json",
+		"x": 130,
+		"y": 340,
+		"wires": [
+			[
+				"178a8b068772675a"
+			]
+		]
+	},
+	{
+		"id": "7287d59004e2708f",
+		"type": "evohome-config",
+		"name": "",
+		"userid": "MyUserID",
+		"passwd": "MyPasswd"
+	}
+]
