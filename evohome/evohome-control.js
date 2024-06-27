@@ -75,6 +75,31 @@ module.exports = function(RED) {
 				}
 			}
 		});
+
+		function renewSession() {
+			var session = context.get('evohome-session');
+			
+			// Clear the interval now because we will either create a new one if we 
+			// refresh the token, of it that fails, there is no point trying to renew
+			// the session again
+			clearInterval(renew);
+
+			if( session != undefined ){
+				session._renew().then(function(json) {
+					// renew session token
+					session.sessionId = 'bearer ' + json.access_token;
+					session.refreshToken = json.refresh_token;
+					context.set('evohome-session', session);
+					renew = setInterval(function() {
+							renewSession();
+						}, session.refreshTokenInterval * 1000);
+					console.log('Renewed Honeywell API authentication token!');
+				}).fail(function(err) {
+					context.set('evohome-session', undefined);
+					node.warn('Renewing Honeywell API authentication token failed:', err);
+				});
+			}
+		}
 	}
 
 	RED.nodes.registerType('evohome-control', Node);
