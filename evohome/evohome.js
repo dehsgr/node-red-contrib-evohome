@@ -98,7 +98,7 @@ Session.prototype.isValid = function () {
 }
 
 Session.prototype.getSchedule = function(zoneId) {
-	var url = "https://tccna.honeywell.com/WebAPI/emea/api/v1/temperatureZone/" + zoneId + "/schedule";
+	var url = "https://tccna.resideo.com/WebAPI/emea/api/v1/temperatureZone/" + zoneId + "/schedule";
 	return this._request(url).then(function(json) {
 		return _.map(json.dailySchedules, function(s) {
 			return new Schedule(s);
@@ -107,7 +107,7 @@ Session.prototype.getSchedule = function(zoneId) {
 }
 
 Session.prototype.getThermostats = function(locationId) {
-	var url = "https://tccna.honeywell.com/WebAPI/emea/api/v1/location/" + locationId + "/status?includeTemperatureControlSystems=True";
+	var url = "https://tccna.resideo.com/WebAPI/emea/api/v1/location/" + locationId + "/status?includeTemperatureControlSystems=True";
 	return this._request(url).then(function(json) {
 		return _.map(json.gateways[0].temperatureControlSystems[0].zones, function(t) {
 			return new Thermostat(t);
@@ -116,14 +116,14 @@ Session.prototype.getThermostats = function(locationId) {
 }
 
 Session.prototype.getSystemModeStatus = function(locationId) {
-	var url = "https://tccna.honeywell.com/WebAPI/emea/api/v1/location/" + locationId + "/status?includeTemperatureControlSystems=True";
+	var url = "https://tccna.resideo.com/WebAPI/emea/api/v1/location/" + locationId + "/status?includeTemperatureControlSystems=True";
 	return this._request(url).then(function(json) {
 		return new SystemModeStatus(json.gateways[0].temperatureControlSystems[0].systemModeStatus);
 	});
 }
 
 Session.prototype.getLocations = function() {
-	var url = "https://tccna.honeywell.com/WebAPI/emea/api/v1/location/installationInfo?userId=" + this.userInfo.userID + "&includeTemperatureControlSystems=True";
+	var url = "https://tccna.resideo.com/WebAPI/emea/api/v1/location/installationInfo?userId=" + this.userInfo.userID + "&includeTemperatureControlSystems=True";
 	return this._request(url).then(function(json) {
 		return _(json).filter(function(obj) {
 				return obj && obj.locationInfo;
@@ -148,7 +148,7 @@ Session.prototype.getLocations = function() {
 
 Session.prototype.setHeatSetpoint = function (zoneId, targetTemperature, endtime) {
 	var deferred = Q.defer();
-	var url = "https://tccna.honeywell.com/WebAPI/emea/api/v1/temperatureZone/" + zoneId + "/heatSetpoint";
+	var url = "https://tccna.resideo.com/WebAPI/emea/api/v1/temperatureZone/" + zoneId + "/heatSetpoint";
 	var now = new Date();
 
 	if(endtime != null) {
@@ -186,7 +186,7 @@ Session.prototype.setHeatSetpoint = function (zoneId, targetTemperature, endtime
 
 Session.prototype.setSystemMode = function (systemId, systemMode) {
 	var deferred = Q.defer();
-	var url = "https://tccna.honeywell.com/WebAPI/emea/api/v1/temperatureControlSystem/" + systemId + "/mode";
+	var url = "https://tccna.resideo.com/WebAPI/emea/api/v1/temperatureControlSystem/" + systemId + "/mode";
 	var body = JSON.stringify({"SystemMode":systemMode,"TimeUntil":null,"Permanent":true});
 	request({
 		method: 'PUT',
@@ -212,7 +212,7 @@ Session.prototype._renew = function() {
 	var deferred = Q.defer();
 	request({
 		method: 'POST',
-		url: 'https://tccna.honeywell.com/Auth/OAuth/Token',
+		url: 'https://tccna.resideo.com/Auth/OAuth/Token',
 		headers: {
 			'Authorization': 'Basic NGEyMzEwODktZDJiNi00MWJkLWE1ZWItMTZhMGE0MjJiOTk5OjFhMTVjZGI4LTQyZGUtNDA3Yi1hZGQwLTA1OWY5MmM1MzBjYg==',
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -266,7 +266,7 @@ function login(username, password) {
 	var deferred = Q.defer();
 	request({
 		method: 'POST',
-		url: 'https://tccna.honeywell.com/Auth/OAuth/Token',
+		url: 'https://tccna.resideo.com/Auth/OAuth/Token',
 		headers: {
 			'Authorization': 'Basic NGEyMzEwODktZDJiNi00MWJkLWE1ZWItMTZhMGE0MjJiOTk5OjFhMTVjZGI4LTQyZGUtNDA3Yi1hZGQwLTA1OWY5MmM1MzBjYg==',
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -301,7 +301,7 @@ function getUserInfo(json) {
 	var deferred = Q.defer();
 	request({
 		method: 'GET',
-		url: 'https://tccna.honeywell.com/WebAPI/emea/api/v1/userAccount',
+		url: 'https://tccna.resideo.com/WebAPI/emea/api/v1/userAccount',
 		headers: {
 			'Authorization': 'bearer ' + json.access_token
 		}
